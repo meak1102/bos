@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	<struts>
+	<constant name="struts.devMode" value="truue" /> 
+	<!-- 加载src下的国际化文件messages.properties -->
+	<constant name="struts.custom.i18n.resources" value="messages" />
+	
+<package name="bosManager" extends="json-default" namespace="/"> 
+    <!--自定义结果集定义-->
+   <result-types>
+    	<result-type name="fastJson" class="com.zhp.bos.web.base.result.FastJonResult"></result-type>
+    </result-types> 
+    <!--自定义拦截器 -->
+    <interceptors>
+    <!--注册自定义拦截器  -->
+     <interceptor name="loginInterceptor" class="loginInterceptor">
+     <!--定义不需要拦截的方法  -->
+      <param name="excludeMethods">login,checkCode,sendSms,checkSmsCode,updatePassword</param> 
+     </interceptor>
+     <!--定义拦截器栈  -->
+     <interceptor-stack name="myStack">
+      <interceptor-ref name="loginInterceptor"></interceptor-ref>
+      <interceptor-ref name="defaultStack"></interceptor-ref>
+     </interceptor-stack>
+    </interceptors>
+    <!-- 设置默认拦截器 -->
+   <!--  <default-interceptor-ref name="myStack"></default-interceptor-ref> -->
+    <!--全局结果集  -->
+     <global-results>
+	    <result name="pageQuery" type="fastJson">
+	    	<param name="root">pageData</param>
+	    </result>
+	    <!--登录拦截器结果集  -->
+	    <result name="noLogin">/login.jsp</result>
+    </global-results>
+	  	<action name="page_*_*">
+	  		<result>/WEB-INF/mypages/{1}/{2}.jsp</result>
+	  	</action>
+</package>
+	</struts>

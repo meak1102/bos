@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+<!--  定义生成实体类规范  match-table 需要将那些表生成实体类   match-catalog 操作是哪一个数据库 -->
+ <schema-selection  match-table="t_user"  match-catalog="bos"/>
+ <schema-selection  match-table="t_standard"  match-catalog="bos"/>
+  <!--  正则表达式 .表示任意字符 * 0或者多个字符  -->
+  <schema-selection  match-table="bc_.*"  match-catalog="bos"/>
+  <schema-selection  match-table="qp_.*"  match-catalog="bos"/>
+  <schema-selection  match-table="auth_.*"  match-catalog="bos"/>
+  <schema-selection  match-table="customers"  match-catalog="bos"/>
+  <!--多对多的关系中必须扫描到中间表  -->
+  <schema-selection  match-table="role_function"  match-catalog="bos"/>
+  <schema-selection  match-table="role_menu"  match-catalog="bos"/>
+  <schema-selection  match-table="user_role"  match-catalog="bos"/>
+  
+<table name="t_user" catalog="bos"
+		class="com.zhp.bos.entity.user.User">
+	</table>
+	<!-- 基础模块 -->
+<table name="t_standard" catalog="bos"
+		class="com.zhp.bos.entity.bc.Standard">
+	</table>
+<table name="bc_staff" catalog="bos"
+		class="com.zhp.bos.entity.bc.Staff">
+		 <!--  定义取派员实体类注解 主键策略 -->
+		<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+	<table name="bc_region" catalog="bos"
+		class="com.zhp.bos.entity.bc.Region">
+	</table>
+	<table name="bc_subarea" catalog="bos"
+		class="com.zhp.bos.entity.bc.Subarea">
+			<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+	<table name="bc_decidedzone" catalog="bos"
+		class="com.zhp.bos.entity.bc.Decidedzone">
+	</table>
+	
+	<!--客户  -->
+	<table name="customers" catalog="bos"
+		class="com.zhp.bos.entity.Customers">
+	</table>
+	<!-- 取派模块 -->
+	<table name="qp_noticebill" catalog="bos"
+		class="com.zhp.bos.entity.qp.NoticeBill">
+		<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+	<table name="qp_workbill" catalog="bos"
+		class="com.zhp.bos.entity.qp.WorkBill">
+		<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+	<table name="qp_workordermanage" catalog="bos"
+		class="com.zhp.bos.entity.qp.WorkOrderManage">
+		<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+	<!--用户模版  -->
+	<table name="auth_function" catalog="bos"
+		class="com.zhp.bos.entity.auth.Function">
+		<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+	<table name="auth_menu" catalog="bos"
+		class="com.zhp.bos.entity.auth.Menu">
+		<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+	<table name="auth_role" catalog="bos"
+		class="com.zhp.bos.entity.auth.Role">
+		<primary-key>
+			<generator class="uuid"></generator>
+		</primary-key>
+	</table>
+</hibernate-reverse-engineering>
